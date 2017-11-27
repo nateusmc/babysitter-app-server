@@ -1,10 +1,14 @@
 {
   "name": "babysitter-app-server",
   "version": "0.1.0",
-  "private": true,
   "dependencies": {
-    
+    "cors": "^2.8.4",
+    "express": "^4.15.4",
+    "knex": "^0.13.0",
+    "mongoose": "^4.11.12",
+    "morgan": "^1.8.2"
   },
+  "author": "Nate Garrett and Adam Bradbury",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
