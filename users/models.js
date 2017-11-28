@@ -5,7 +5,7 @@ const ParentalInfoSchema = mongoose.Schema({
     firstName: {type: String, required: true},
     lastName: {type: String, required: true},
     ageOfChild: {type: Number, required: true},
-    zipcode: {type: String, required: true},
+    zipcode: {type: Number, required: true},
     dateNeeded: {type: Date, required: true},
     additionalInfo: {type: String}
 })
@@ -13,7 +13,9 @@ const ParentalInfoSchema = mongoose.Schema({
 ParentalInfoSchema.methods.apiRepr = function() {
     return {
         id: this._id,
+        name: this.firstName + ' ' + this.lastName,
         firstName: this.firstName,
+        lastName: this.lastName,
         ageOfChild: this.ageOfChild,
         zipcode: this.zipcode,
         dateNeeded: this.dateNeeded,
