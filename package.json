@@ -3,10 +3,11 @@
   "version": "0.1.0",
   "dependencies": {
     "cors": "^2.8.4",
-    "express": "^4.15.4",
-    "knex": "^0.13.0",
-    "mongoose": "^4.11.12",
-    "morgan": "^1.8.2"
+    "express": "^4.16.2",
+    "knex": "^0.14.2",
+    "mongoose": "^4.13.5",
+    "morgan": "^1.9.0",
+    "react": "^16.1.1"
   },
   "author": "Nate Garrett and Adam Bradbury",
   "scripts": {
