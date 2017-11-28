@@ -30,6 +30,38 @@ app.get('/', (req, res) => {
   res.send('stop running')
 })
 
+app.get('/parents', (req, res) => {
+  ParentalInfo
+    .find()
+  res.send('/parents works')
+})
+
+app.post('/parents', (req, res) => {
+  const requiredFields = ['firstName', 'lastName', 'ageOfChild', 'zipCode', 'dateNeeded']
+  for(let i=0; i<requiredFields.length; i++) {
+    const field = requiredFields[i];
+    if(!(field in req.body)) {
+      const message = `Missing \`${field}\` in request body`
+      console.error(message)
+      return res.status(400).send(message);
+    }
+  }
+
+  ParentalInfo
+    .create({
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      ageOfChild: req.body.ageOfChild,
+      zipCode: req.body.zipCode,
+      dateNeeded: req.body.dateNeeded
+    })
+    .then(parentInfo => res.status(201).json(parentInfo.apiRepr()))
+    .catch(err => {
+      console.error(err);
+      res.status(500).json({error: 'info not received'})
+    })
+});
+
 
 function runServer(databaseUrl=DATABASE_URL, port=PORT) {
     
