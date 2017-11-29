@@ -23,9 +23,10 @@ router.get('/', (req, res) => {
         });
   });
 
-router.get('/zipcode', (req, res) => {
+router.get('?zipcode', (req, res) => {
     return ParentalInfo
     .find()
+    .where('zipcode').equals(req.query.zipcode)
     .then(result => {
         res.json(result);
     })
