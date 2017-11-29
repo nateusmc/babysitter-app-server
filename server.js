@@ -9,7 +9,7 @@ const cors = require('cors');
 mongoose.Promise = global.Promise;
 
 const { router: parentsRouter } = require('./users');
-const {PORT, DATABASE_URL} = require('./config');
+const {PORT, DATABASE_URL, CLIENT_ORIGIN} = require('./config');
 const {ParentalInfo} = require('./users/models');
 
 const app = express();
@@ -24,7 +24,7 @@ app.use(
 
 app.use(
   cors({
-    origin: DATABASE_URL
+    origin: CLIENT_ORIGIN
   })
 );  
 // console.log(parentsRouter);
