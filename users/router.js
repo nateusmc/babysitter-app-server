@@ -11,15 +11,13 @@ const jsonParser = bodyParser.json();
 
 
 router.get('/', (req, res) => {
-    console.log('server.js working')
-    res.send('stop running')
+    ParentalInfo
+        .find()
+        .then(info => {
+            return res.send(info)
+        })
   })
   
-router.get('/', (req, res) => {
-// ParentalInfo
-//   .find()
-res.send('/parents works')
-})
 
 router.post('/', (req, res) => {
 const requiredFields = ['firstName', 'lastName', 'ageOfChild', 'zipcode', 'dateNeeded']
