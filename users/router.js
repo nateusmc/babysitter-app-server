@@ -14,9 +14,22 @@ router.get('/', (req, res) => {
     ParentalInfo
         .find()
         .then(info => {
-            return res.send(info)
+            console.log('get request working')
+            res.json(info.map(data => data.apiRepr()))
         })
-  })
+        .catch(err => {
+            console.error(err);
+            res.status(500).json({error: 'server side error'});
+        });
+  });
+
+router.get('/zipcode', (req, res) => {
+    return ParentalInfo
+    .find()
+    .then(result => {
+        res.json(result);
+    })
+})
   
 
 router.post('/', (req, res) => {
@@ -32,12 +45,12 @@ for(let i=0; i<requiredFields.length; i++) {
 
 ParentalInfo
     .create({
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    ageOfChild: req.body.ageOfChild,
-    zipcode: req.body.zipcode,
-    dateNeeded: req.body.dateNeeded,
-    additionalInfo: req.body.additionalInfo,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        ageOfChild: req.body.ageOfChild,
+        zipcode: req.body.zipcode,
+        dateNeeded: req.body.dateNeeded,
+        additionalInfo: req.body.additionalInfo,
     })
     .then(parentInfo => res.status(201).json(parentInfo.apiRepr()))
     .catch(err => {
