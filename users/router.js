@@ -80,7 +80,6 @@ const missingField = requiredFields.find(field => !(field in req.body));
     }
 
 
-
     for(let i=0; i<requiredFields.length; i++) {
         const field = requiredFields[i];
         if(!(field in req.body)) {
