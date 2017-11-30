@@ -10,11 +10,13 @@ const router = express.Router();
 const jsonParser = bodyParser.json();
 
 
-router.get('/', (req, res) => {
-    ParentalInfo
+router.post('/zipcode', jsonParser, (req, res) => {
+    console.log(req.body.zipcode)
+    return ParentalInfo
         .find()
+        .where('zipcode').equals(req.body.zipcode)
         .then(info => {
-            console.log('get request working')
+            console.log(info)
             res.json(info.map(data => data.apiRepr()))
         })
         .catch(err => {
