@@ -36,6 +36,7 @@ router.post('/zipcode', jsonParser, (req, res) => {
   
 
 router.post('/', (req, res) => {
+    console.log(req.body);
 const requiredFields = ['firstName', 'lastName', 'ageOfChild', 'zipcode', 'dateNeeded']
 for(let i=0; i<requiredFields.length; i++) {
     const field = requiredFields[i];
