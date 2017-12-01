@@ -13,8 +13,6 @@ const ParentalInfoSchema = mongoose.Schema({
     additionalInfo: {type: String, required: false},
 })
 
-
-
 ParentalInfoSchema.methods.apiRepr = function() {
 
 
