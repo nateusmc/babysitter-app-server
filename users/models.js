@@ -13,7 +13,11 @@ const ParentalInfoSchema = mongoose.Schema({
     additionalInfo: {type: String, required: false},
 })
 
+
+
 ParentalInfoSchema.methods.apiRepr = function() {
+
+
     return {
         id: this._id,
         name: this.firstName + ' ' + this.lastName,
@@ -25,7 +29,7 @@ ParentalInfoSchema.methods.apiRepr = function() {
         startTime: this.startTime,
         endTime: this.endTime,
         email: this.email,
-        additionalInfo: this.additionalInfo
+        additionalInfo: this.additionalInfo,
     }
 }
 
