@@ -8,9 +8,9 @@ const cors = require('cors');
  
 mongoose.Promise = global.Promise;
 
-const { router: parentsRouter } = require('./users');
+const { router: parentsRouter } = require('./parents');
 const {PORT, DATABASE_URL, CLIENT_ORIGIN} = require('./config');
-const {ParentalInfo} = require('./users/models');
+const {ParentalInfo} = require('./parents/models');
 
 const app = express();
 
