@@ -10,11 +10,16 @@ const jsonParser = bodyParser.json();
 
 router.post('/bio/create', jsonParser, (req, res) => {
     let { id, ageOfChild, dateNeeded, startTime, endTime, additionalInfo } = req.body
-    return ParentalInfo.create({parent: id, ageOfChild, dateNeeded, startTime, endTime, additionalInfo})
-        .then(Parent => {
-            return res.status(201).json(Parent.apiRepr())
+    // console.log('req.body', req.body)
+    return ParentalInfo.create({ parent: id, ageOfChild, dateNeeded, startTime, endTime, additionalInfo })
+        .then(parent => {
+            console.log('Parent', parent)
+            return res.status(201).json(parent.apiRepr())
         })
-        .catch(err => res.status(500).json({message: 'Internal server error'}))
+        .catch(err => {
+            console.log('err', err)
+            res.status(500).json({message: 'Internal server error'})
+        })
 })
 
 

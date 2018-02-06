@@ -13,9 +13,9 @@ const jsonParser = bodyParser.json();
 
 router.post('/bio/create', jsonParser, (req, res) => {
     let { id, bio, yearsExperience, dateAvailable, hoursAvailable } = req.body;
-    return Sitter.create({sitter: id, bio, yearsExperience, dateAvailable, hoursAvailable })
-        .then(Sitter => {
-            return res.status(201).json(Sitter.apiRepr())
+    return Sitter.create({ sitter: id, bio, yearsExperience, dateAvailable, hoursAvailable })
+        .then(sitter => {
+            return res.status(201).json(sitter.apiRepr())
         })
         .catch(err => res.status(500).json({message: 'Internal server error'}))
 })
