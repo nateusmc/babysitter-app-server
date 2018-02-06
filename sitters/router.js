@@ -22,10 +22,10 @@ router.post('/bio/create', jsonParser, (req, res) => {
 })
 
 
-router.post('/zipcode', jsonParser, (req, res) => {
-    console.log(req.body.zipcode)
+router.get('/:zipcode', jsonParser, (req, res) => {
+    console.log(req.params.zipcode)
     return User.find({
-        zipcode: req.body.zipcode,
+        zipcode: req.params.zipcode,
         role: "Parent"
     })
         .then(info => {
