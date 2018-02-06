@@ -5,12 +5,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const cors = require('cors');
- 
-mongoose.Promise = global.Promise;
-
-const { router: parentsRouter } = require('./parents');
 const {PORT, DATABASE_URL, CLIENT_ORIGIN} = require('./config');
+const { router: parentsRouter } = require('./parents');
+const { router: usersRouter } = require('./users');
 const {ParentalInfo} = require('./parents/models');
+const {User} = require('./users/models');
 
 const app = express();
 
@@ -22,13 +21,18 @@ app.use(
   })
 );
 
+// passport.use(localStrategy);
+// passport.use(jwtStrategy);
+
 app.use(
   cors({
     origin: CLIENT_ORIGIN
   })
 );  
-// console.log(parentsRouter);
+
+
 app.use('/api/parents/', parentsRouter);
+app.use('/api/users/', usersRouter);
 
 function runServer(databaseUrl=DATABASE_URL, port=PORT) {
     console.log(DATABASE_URL)
