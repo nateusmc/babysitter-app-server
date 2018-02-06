@@ -13,7 +13,7 @@ const MessageSchema = mongoose.Schema({
 MessageSchema.methods.apiRepr = function () {
     return {
         messageID: this._id,
-        sitterID: this.studentID || '',
+        sitterID: this.sitterID || '',
         parentID: this.parentID || '',
         messages: this.messages || '',
         dateTime: this.dateTime || ''

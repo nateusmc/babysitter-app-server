@@ -14,13 +14,13 @@ ParentalInfoSchema.methods.apiRepr = function() {
 
 
     return {
-        parentID: this._id,
-        parent: this.parent,
-        ageOfChild: this.ageOfChild,
-        dateNeeded: this.dateNeeded,
-        startTime: this.startTime,
-        endTime: this.endTime,
-        additionalInfo: this.additionalInfo,
+        parentID: this._id || '',
+        parent: this.parent || '',
+        ageOfChild: this.ageOfChild || '',
+        dateNeeded: this.dateNeeded || '',
+        startTime: this.startTime || '',
+        endTime: this.endTime || '',
+        additionalInfo: this.additionalInfo || '',
     }
 }
 
