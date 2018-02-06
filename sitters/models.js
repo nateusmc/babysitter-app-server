@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 const SitterInfoSchema = mongoose.Schema({
-    userID: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+    sitter: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
     bio: {type: String, required: true},
     yearsExperience: {type: Number, required: true},
     dateAvailable: {type: Date, required: true},
@@ -14,7 +14,7 @@ const SitterInfoSchema = mongoose.Schema({
 SitterInfoSchema.methods.apiRepr = function() {
     return {
         sitterID: this._id,
-        userID: this.userID || '',
+        sitter: this.sitter || '',
         bio: this.bio || '',
         yearsExperience: this.yearsExperience || '',
         dateAvailable: this.dateAvailable || '',
@@ -22,6 +22,6 @@ SitterInfoSchema.methods.apiRepr = function() {
     }
 }
 
-const SitterInfo = mongoose.model('SitterInfo', SitterInfoSchema)
+const Sitter = mongoose.model('Sitter', SitterInfoSchema)
 
-module.exports = {SitterInfo};
+module.exports = {Sitter};

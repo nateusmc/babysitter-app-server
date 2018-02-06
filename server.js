@@ -8,6 +8,7 @@ const cors = require('cors');
 const {PORT, DATABASE_URL, CLIENT_ORIGIN} = require('./config');
 const { router: parentsRouter } = require('./parents');
 const { router: usersRouter } = require('./users');
+const { router: sitterRouter } = require('./sitters');
 const {ParentalInfo} = require('./parents/models');
 const {User} = require('./users/models');
 
@@ -33,6 +34,7 @@ app.use(
 
 app.use('/api/parents/', parentsRouter);
 app.use('/api/users/', usersRouter);
+app.use('/api/sitters/', sitterRouter);
 
 function runServer(databaseUrl=DATABASE_URL, port=PORT) {
     console.log(DATABASE_URL)

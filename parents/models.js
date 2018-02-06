@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 
 const ParentalInfoSchema = mongoose.Schema({
-    userID: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+    parent: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
     ageOfChild: {type: Number, required: true},
     dateNeeded: {type: Date, required: true},
     startTime: {type: String, required: true},
@@ -15,7 +15,7 @@ ParentalInfoSchema.methods.apiRepr = function() {
 
     return {
         parentID: this._id,
-        userID: this.userID,
+        parent: this.parent,
         ageOfChild: this.ageOfChild,
         dateNeeded: this.dateNeeded,
         startTime: this.startTime,
@@ -27,4 +27,4 @@ ParentalInfoSchema.methods.apiRepr = function() {
 
 const ParentalInfo = mongoose.model('ParentalInfo', ParentalInfoSchema);
 
-module.exports = {ParentalInfo};
+module.exports = { ParentalInfo };

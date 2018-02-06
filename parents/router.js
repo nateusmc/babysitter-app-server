@@ -2,12 +2,20 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
-
 const { ParentalInfo } = require('./models');
-
 const router = express.Router();
-
 const jsonParser = bodyParser.json();
+
+
+// router.post('/bio/create', jsonParser, (req, res) => {
+//     let { id, ageOfChild, dateNeeded, startTime, endTime, additionalInfo } = req.body
+//     return ParentalInfo.create({parent: id, ageOfChild, dateNeeded, startTime, endTime, additionalInfo})
+//         .then(Parent => {
+//             return res.status(201).json(Parent.apiRepr())
+//         })
+//         .catch(err => res.status(500).json({message: 'Internal server error'}))
+// })
+
 
 
 router.post('/zipcode', jsonParser, (req, res) => {
