@@ -4,8 +4,9 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 const SitterInfoSchema = mongoose.Schema({
-    sitter: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+    sitterUserID: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
     bio: {type: String, required: true},
+    location: {type: Number, required: true},
     yearsExperience: {type: Number, required: true},
     dateAvailable: {type: Date, required: true},
     hoursAvailable: {type: Number, required: false},
@@ -14,8 +15,9 @@ const SitterInfoSchema = mongoose.Schema({
 SitterInfoSchema.methods.apiRepr = function() {
     return {
         sitterID: this._id,
-        sitter: this.sitter || '',
+        sitterUserID: this.sitterUserID || '',
         bio: this.bio || '',
+        location: this.location || '',
         yearsExperience: this.yearsExperience || '',
         dateAvailable: this.dateAvailable || '',
         hoursAvailable: this.hoursAvailable || ''

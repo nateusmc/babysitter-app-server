@@ -4,6 +4,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const { Sitter } = require('./models')
+const { ParentalInfo } = require('../parents/models')
 const { User } = require('../users/models')
 const router = express.Router();
 const jsonParser = bodyParser.json();
@@ -13,8 +14,8 @@ const jsonParser = bodyParser.json();
 
 
 router.post('/bio/create', jsonParser, (req, res) => {
-    let { id, bio, yearsExperience, dateAvailable, hoursAvailable } = req.body;
-    return Sitter.create({ sitter: id, bio, yearsExperience, dateAvailable, hoursAvailable })
+    let { sitterUserID, bio, yearsExperience, location, dateAvailable, hoursAvailable } = req.body;
+    return Sitter.create({ sitterUserID, bio, yearsExperience, location, dateAvailable, hoursAvailable })
         .then(sitter => {
             return res.status(201).json(sitter.apiRepr())
         })
@@ -24,15 +25,15 @@ router.post('/bio/create', jsonParser, (req, res) => {
 
 router.get('/:zipcode', jsonParser, (req, res) => {
     console.log(req.params.zipcode)
-    return User.find({
-        zipcode: req.params.zipcode,
-        role: "Parent"
+    return ParentalInfo.find({
+        location: req.params.zipcode, 
     })
         .then(info => {
+            console.log('info', info)
             res.json(info.map(data => data.apiRepr()))
         })
         .catch(err => {
-            // console.error(err);
+            console.error('+++++', err);
             res.status(500).json({error: 'server side error'});
         });
   });

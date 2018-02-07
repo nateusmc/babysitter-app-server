@@ -88,7 +88,6 @@ let {password, firstName = '', lastName = '', role, email = '', zipcode = ''} = 
 firstName = firstName.trim();
 lastName = lastName.trim();
 email = email.trim();
-zipcode = zipcode.trim();
 
 return User.find({email})
     .count()
