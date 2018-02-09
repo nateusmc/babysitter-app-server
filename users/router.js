@@ -89,6 +89,7 @@ firstName = firstName.trim();
 lastName = lastName.trim();
 email = email.trim();
 
+console.log('test')
 return User.find({email})
     .count()
     .then(count => {

@@ -1,19 +1,20 @@
 'use strict'
 
+require('dotenv').config();
 const bodyParser = require('body-parser');
 const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
-const cors = require('cors');
 const {PORT, DATABASE_URL, CLIENT_ORIGIN} = require('./config');
 const { router: parentsRouter } = require('./parents');
 const { router: usersRouter } = require('./users');
 const { router: sittersRouter } = require('./sitters');
+const { router: authRouter, localStrategy, jwtStrategy } = require('./auth');
 const {ParentalInfo} = require('./parents/models');
 const {User} = require('./users/models');
-
+const passport = require('passport')
 const app = express();
-
+const cors = require('cors');
 app.use(bodyParser.json());
 
 app.use(
@@ -22,8 +23,8 @@ app.use(
   })
 );
 
-// passport.use(localStrategy);
-// passport.use(jwtStrategy);
+passport.use(localStrategy);
+passport.use(jwtStrategy);
 
 app.use(
   cors({
