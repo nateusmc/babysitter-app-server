@@ -4,7 +4,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const { ParentalInfo } = require('./models');
-const { User } = require('../users/models')
+const { Sitter } = require('../sitters/models');
+const { User } = require('../users/models');
 const router = express.Router();
 const jsonParser = bodyParser.json();
 
@@ -26,20 +27,20 @@ router.post('/bio/create', jsonParser, (req, res) => {
 
 // for landingPage. No auth needed
 
-router.post('/zipcode', jsonParser, (req, res) => {
-    console.log(req.body.zipcode)
-    return User.find({
-        zipcode: req.body.zipcode,
-        role: "Sitter"
-    })
-        .then(info => {
-            res.json(info.map(data => data.apiRepr()))
-        })
-        .catch(err => {
-            // console.error(err);
-            res.status(500).json({error: 'server side error'});
-        });
-  });
+// router.get('/:zipcode', jsonParser, (req, res) => {
+//     console.log(req.params.zipcode)
+//     return Sitter.find(
+//         {location: req.params.zipcode},
+//         {'_id': 0, 'sitterUserID': 0 }
+//     )
+//         .then(data => {
+//             res.status(200).json(data)
+//         })
+//         .catch(err => {
+//             // console.error(err);
+//             res.status(500).json({error: 'server side error'});
+//         });
+//   });
   
 
   module.exports = { router };

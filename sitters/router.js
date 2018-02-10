@@ -23,20 +23,35 @@ router.post('/bio/create', jsonParser, (req, res) => {
 })
 
 
+// router.get('/:zipcode', jsonParser, (req, res) => {
+//     console.log(req.params.zipcode)
+//     return ParentalInfo.find({
+//         location: req.params.zipcode, 
+//     })
+//         .then(info => {
+//             console.log('info', info)
+//             res.json(info.map(data => data.apiRepr()))
+//         })
+//         .catch(err => {
+//             console.error('+++++', err);
+//             res.status(500).json({error: 'server side error'});
+//         });
+//   });
+
 router.get('/:zipcode', jsonParser, (req, res) => {
-    console.log(req.params.zipcode)
-    return ParentalInfo.find({
-        location: req.params.zipcode, 
+console.log(req.params.zipcode)
+return Sitter.find(
+    {location: req.params.zipcode},
+    {'_id': 0, 'sitterUserID': 0 }
+)
+    .then(data => {
+        res.status(200).json(data)
     })
-        .then(info => {
-            console.log('info', info)
-            res.json(info.map(data => data.apiRepr()))
-        })
-        .catch(err => {
-            console.error('+++++', err);
-            res.status(500).json({error: 'server side error'});
-        });
-  });
+    .catch(err => {
+        // console.error(err);
+        res.status(500).json({error: 'server side error'});
+    });
+});
   
 
 module.exports = {router};
