@@ -5,11 +5,13 @@ mongoose.Promise = global.Promise;
 
 const SitterInfoSchema = mongoose.Schema({
     sitterUserID: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+    sitterHeader: {type: String, required: false},
     bio: {type: String, required: true},
     location: {type: Number, required: true},
     yearsExperience: {type: Number, required: true},
     dateAvailable: {type: Date, required: true},
     hoursAvailable: {type: Number, required: false},
+    rate: {type: Number, required: true},
 })
 
 SitterInfoSchema.methods.apiRepr = function() {

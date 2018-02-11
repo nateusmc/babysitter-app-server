@@ -14,8 +14,8 @@ const jsonParser = bodyParser.json();
 
 
 router.post('/bio/create', jsonParser, (req, res) => {
-    let { sitterUserID, bio, yearsExperience, location, dateAvailable, hoursAvailable } = req.body;
-    return Sitter.create({ sitterUserID, bio, yearsExperience, location, dateAvailable, hoursAvailable })
+    let { sitterUserID, bio, yearsExperience, location, dateAvailable, hoursAvailable, rate, sitterHeader } = req.body;
+    return Sitter.create({ sitterUserID, bio, yearsExperience, location, dateAvailable, hoursAvailable, rate, sitterHeader })
         .then(sitter => {
             return res.status(201).json(sitter.apiRepr())
         })
@@ -39,18 +39,18 @@ router.post('/bio/create', jsonParser, (req, res) => {
 //   });
 
 router.get('/:zipcode', jsonParser, (req, res) => {
-console.log(req.params.zipcode)
-return Sitter.find(
-    {location: req.params.zipcode},
-    {'_id': 0, 'sitterUserID': 0 }
-)
-    .then(data => {
-        res.status(200).json(data)
-    })
-    .catch(err => {
-        // console.error(err);
-        res.status(500).json({error: 'server side error'});
-    });
+    return Sitter.find(
+        {location: req.params.zipcode},
+        {'_id': 0, '__v': 0 }
+        )
+        .populate('sitterUserID', {'_id': 0, '__v': 0, 'password': 0})
+        .then(data => {
+                res.status(200).json(data)
+            })
+        .catch(err => {
+            console.error(err);
+            res.status(500).json({error: 'server side error'});
+            });
 });
   
 
