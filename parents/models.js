@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const ParentalInfoSchema = mongoose.Schema({
     parentUserID: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
     location: {type: Number, required: true},
-    ageOfChild: {type: Number, required: true},
+    ageOfChild: {type: String, required: true},
     dateNeeded: {type: Date, required: true},
     startTime: {type: String, required: true},
     endTime: {type: String, required: true},

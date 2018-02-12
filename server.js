@@ -36,9 +36,11 @@ app.use(
 app.use('/api/parents/', parentsRouter);
 app.use('/api/users/', usersRouter);
 app.use('/api/sitters/', sittersRouter);
+app.use('/api/auth/', authRouter);
+
 
 function runServer(databaseUrl=DATABASE_URL, port=PORT) {
-    console.log(DATABASE_URL)
+    console.log(DATABASE_URL) 
       return new Promise((resolve, reject) => {
         mongoose.connect(databaseUrl, err => {
           if (err) {
