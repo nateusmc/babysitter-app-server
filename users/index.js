@@ -1,4 +1,5 @@
-const {ParentalInfo} = require('./models');
+'use strict';
+const {User} = require('./models');
 const {router} = require('./router');
 
-module.exports = {ParentalInfo, router};
+module.exports = {User, router};

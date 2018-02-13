@@ -1,37 +1,38 @@
-'use strict'
+'use strict';
+const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
 
-const ParentalInfoSchema = mongoose.Schema({
-    firstName: {type: String, required: true},
-    lastName: {type: String, required: true},
-    ageOfChild: {type: Number, required: true},
-    zipcode: {type: Number, required: true},
-    dateNeeded: {type: Date, required: true},
-    startTime: {type: String, require: true},
-    endTime: {type: String, require: true},
-    email: {type: String, require: true},
-    additionalInfo: {type: String, required: false},
-})
+mongoose.Promise = global.Promise;
 
-ParentalInfoSchema.methods.apiRepr = function() {
+const UserSchema = mongoose.Schema({
+  
+  firstName: {type: String, default: ''},
+  lastName: {type: String, default: '', text: true},
+  password: {type: String, required: true},
+  email: {type: String, required: true}, 
+  zipcode: {type: Number, required: true},
+  role: {type: String, required: true}
+});
 
+UserSchema.methods.apiRepr = function() {
+  return {
+    id: this._id,
+    firstName: this.firstName || '',
+    lastName: this.lastName || '',
+    email: this.email || '',
+    zipcode: this.zipcode || '',
+    role: this.role || '',
+  };
+};
 
-    return {
-        id: this._id,
-        name: this.firstName + ' ' + this.lastName,
-        firstName: this.firstName,
-        lastName: this.lastName,
-        ageOfChild: this.ageOfChild,
-        zipcode: this.zipcode,
-        dateNeeded: this.dateNeeded,
-        startTime: this.startTime,
-        endTime: this.endTime,
-        email: this.email,
-        additionalInfo: this.additionalInfo,
-    }
-}
+UserSchema.methods.validatePassword = function(password) {
+  return bcrypt.compare(password, this.password);
+};
 
+UserSchema.statics.hashPassword = function(password) {
+  return bcrypt.hash(password, 10);
+};
 
-const ParentalInfo = mongoose.model('ParentalInfo', ParentalInfoSchema);
+const User = mongoose.model('User', UserSchema);
 
-module.exports = {ParentalInfo};
+module.exports = {User};

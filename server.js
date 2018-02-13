@@ -1,19 +1,20 @@
 'use strict'
 
+require('dotenv').config();
 const bodyParser = require('body-parser');
 const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
-const cors = require('cors');
- 
-mongoose.Promise = global.Promise;
-
-const { router: parentsRouter } = require('./users');
 const {PORT, DATABASE_URL, CLIENT_ORIGIN} = require('./config');
-const {ParentalInfo} = require('./users/models');
-
+const { router: parentsRouter } = require('./parents');
+const { router: usersRouter } = require('./users');
+const { router: sittersRouter } = require('./sitters');
+const { router: authRouter, localStrategy, jwtStrategy } = require('./auth');
+const {ParentalInfo} = require('./parents/models');
+const {User} = require('./users/models');
+const passport = require('passport')
 const app = express();
-
+const cors = require('cors');
 app.use(bodyParser.json());
 
 app.use(
@@ -22,16 +23,24 @@ app.use(
   })
 );
 
+passport.use(localStrategy);
+passport.use(jwtStrategy);
+
 app.use(
   cors({
     origin: CLIENT_ORIGIN
   })
 );  
-// console.log(parentsRouter);
+
+
 app.use('/api/parents/', parentsRouter);
+app.use('/api/users/', usersRouter);
+app.use('/api/sitters/', sittersRouter);
+app.use('/api/auth/', authRouter);
+
 
 function runServer(databaseUrl=DATABASE_URL, port=PORT) {
-    console.log(DATABASE_URL)
+    console.log(DATABASE_URL) 
       return new Promise((resolve, reject) => {
         mongoose.connect(databaseUrl, err => {
           if (err) {
