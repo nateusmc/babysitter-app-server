@@ -12,8 +12,7 @@ const jsonParser = bodyParser.json();
 
 router.post('/bio/create', jsonParser, (req, res) => {
     let { parentUserID, ageOfChild, dateNeeded, startTime, location, endTime, additionalInfo } = req.body
-    // console.log('req.body', req.body)
-    return ParentalInfo.create({ parentUserID: id, ageOfChild, location, dateNeeded, startTime, endTime, additionalInfo })
+    return ParentalInfo.create({ parentUserID, ageOfChild, location, dateNeeded, startTime, endTime, additionalInfo })
         .then(values => {
             console.log('Parent', values)
             return res.status(201).json(values.apiRepr())
@@ -34,6 +33,5 @@ router.get('/:zipcode', jsonParser, (req, res) => {
 		.catch(err => res.status(500).json({error: 'server side error'}))
 })
 
-
-  module.exports = { router };
+module.exports = { router };
 
