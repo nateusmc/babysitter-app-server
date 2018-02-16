@@ -24,6 +24,15 @@ router.post('/bio/create', jsonParser, (req, res) => {
         })
 })
 
+router.get('/:zipcode', jsonParser, (req, res) => {
+	return ParentalInfo.find(
+		{location: req.params.zipcode},
+		{'_id':0, '__v':0}
+	)
+		.populate('parentUserID', {'_id': 0, '__v': 0, 'password': 0})
+		.then(data => res.status(200).json(data))
+		.catch(err => res.status(500).json({error: 'server side error'}))
+})
 
 
   module.exports = { router };
