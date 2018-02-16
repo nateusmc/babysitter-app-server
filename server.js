@@ -24,7 +24,6 @@ app.use(
   })
 );
 
-
 passport.use(localStrategy);
 passport.use(jwtStrategy);
 
@@ -33,9 +32,6 @@ app.use(
     origin: CLIENT_ORIGIN
   })
 );  
-
-
-
 
 app.use('/api/parents/', parentsRouter);
 app.use('/api/users/', usersRouter);
