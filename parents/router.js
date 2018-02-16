@@ -13,10 +13,10 @@ const jsonParser = bodyParser.json();
 router.post('/bio/create', jsonParser, (req, res) => {
     let { parentUserID, ageOfChild, dateNeeded, startTime, location, endTime, additionalInfo } = req.body
     // console.log('req.body', req.body)
-    return ParentalInfo.create({ parentUserID, ageOfChild, location, dateNeeded, startTime, endTime, additionalInfo })
-        .then(parent => {
-            console.log('Parent', parent)
-            return res.status(201).json(parent.apiRepr())
+    return ParentalInfo.create({ parentUserID: id, ageOfChild, location, dateNeeded, startTime, endTime, additionalInfo })
+        .then(values => {
+            console.log('Parent', values)
+            return res.status(201).json(values.apiRepr())
         })
         .catch(err => {
             console.log('err', err)
