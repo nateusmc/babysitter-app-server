@@ -8,8 +8,9 @@ const config = require('../config');
 const router = express.Router();
 
 const createAuthToken = function(user){
+
   return jwt.sign({ user }, config.JWT_SECRET,{
-    subject: user.username,
+    subject: user.email,
     expiresIn: config.JWT_EXPIRY,
     algorithm: 'HS256'
   });
@@ -17,9 +18,12 @@ const createAuthToken = function(user){
 
 const localAuth = passport.authenticate('local', {session: false});
 router.use(bodyParser.json());
+
 router.post('/login', localAuth, (req, res) => {
-  const authToken = createAuthToken(req.user.apiRepr());
-  res.json({authToken});
+  // console.log(req.user, 'req router.js')
+  // const authToken = createAuthToken(req.user.apiRepr());
+  // res.json({authToken});
+  res.send('hello').end()
 });
 
 const jwtAuth = passport.authenticate('jwt', {session:false});

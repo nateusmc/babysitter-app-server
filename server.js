@@ -15,6 +15,7 @@ const {User} = require('./users/models');
 const passport = require('passport')
 const app = express();
 const cors = require('cors');
+
 app.use(bodyParser.json());
 
 app.use(
@@ -22,6 +23,7 @@ app.use(
     skip: (req, res) => process.env.NODE_ENV === 'test'
   })
 );
+
 
 passport.use(localStrategy);
 passport.use(jwtStrategy);
@@ -31,6 +33,8 @@ app.use(
     origin: CLIENT_ORIGIN
   })
 );  
+
+
 
 
 app.use('/api/parents/', parentsRouter);
