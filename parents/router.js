@@ -8,6 +8,9 @@ const { Sitter } = require('../sitters/models');
 const { User } = require('../users/models');
 const router = express.Router();
 const jsonParser = bodyParser.json();
+const passport = require('passport');
+const jwt = require('jsonwebtoken');
+const jwtAuth = passport.authenticate('jwt', {session:false});
 
 
 router.post('/bio/create', jsonParser, (req, res) => {
@@ -33,6 +36,16 @@ router.get('/:zipcode', jsonParser, (req, res) => {
             console.log('data', data)
             res.status(200).json(data)})
 		.catch(err => res.status(500).json({error: 'server side error'}))
+})
+
+router.get('/bio/:id', jsonParser, (req, res) => {
+    console.log('reqparams', req.params)
+    return ParentalInfo.find({parentUserID: req.params.id})
+        .populate('parentUserID')
+        .then(data => {
+            console.log('data', data)
+            res.json(data)})
+        .catch(err => {res.status(500).json({error: 'server side error'})})
 })
 
 module.exports = { router };
