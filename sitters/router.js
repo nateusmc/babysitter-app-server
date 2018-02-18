@@ -22,7 +22,15 @@ router.post('/bio/create', jsonParser, (req, res) => {
         .catch(err => res.status(500).json({message: 'Internal server error'}))
 })
 
-
+// Gets all sitter bio created by id
+router.get('/bio/:id', jsonParser, (req, res) => {
+    return Sitter.find({sitterUserID: req.params.id})
+        .populate('sitterUserID')
+        .then(data => {
+            console.log('data', data)
+            res.json(data)})
+        .catch(err => {res.status(500).json({error: 'server side error'})})
+})
 
 router.get('/:zipcode', jsonParser, (req, res) => {
     return Sitter.find(
