@@ -14,8 +14,8 @@ const jsonParser = bodyParser.json();
 
 
 router.post('/bio/create', jsonParser, (req, res) => {
-    let { sitterUserID, bio, yearsExperience, location, dateAvailable, hoursAvailable, rate, sitterHeader } = req.body;
-    return Sitter.create({ sitterUserID, bio, yearsExperience, location, dateAvailable, hoursAvailable, rate, sitterHeader })
+    let { id, bio, yearsExperience, location, dateAvailable, hoursAvailable, rate, sitterHeader } = req.body;
+    return Sitter.create({ sitterUserID: id, bio, yearsExperience, location, dateAvailable, hoursAvailable, rate, sitterHeader })
         .then(sitter => {
             return res.status(201).json(sitter.apiRepr())
         })
@@ -23,20 +23,6 @@ router.post('/bio/create', jsonParser, (req, res) => {
 })
 
 
-// router.get('/:zipcode', jsonParser, (req, res) => {
-//     console.log(req.params.zipcode)
-//     return ParentalInfo.find({
-//         location: req.params.zipcode, 
-//     })
-//         .then(info => {
-//             console.log('info', info)
-//             res.json(info.map(data => data.apiRepr()))
-//         })
-//         .catch(err => {
-//             console.error('+++++', err);
-//             res.status(500).json({error: 'server side error'});
-//         });
-//   });
 
 router.get('/:zipcode', jsonParser, (req, res) => {
     return Sitter.find(

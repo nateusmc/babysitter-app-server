@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 
 const ParentalInfoSchema = mongoose.Schema({
     parentUserID: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+    numberOfChildren: {type: Number, required: true},
     location: {type: Number, required: true},
     ageOfChild: {type: String, required: true},
     dateNeeded: {type: Date, required: true},
@@ -17,6 +18,7 @@ ParentalInfoSchema.methods.apiRepr = function() {
     return {
         parentSchemaID: this._id || '',
         parentUserID: this.parentUserID || '',
+        numberOfChildren: this.numberOfChildren || '',
         location: this.location || '',
         ageOfChild: this.ageOfChild || '',
         dateNeeded: this.dateNeeded || '',

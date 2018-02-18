@@ -11,8 +11,8 @@ const jsonParser = bodyParser.json();
 
 
 router.post('/bio/create', jsonParser, (req, res) => {
-    let { parentUserID, ageOfChild, dateNeeded, startTime, location, endTime, additionalInfo } = req.body
-    return ParentalInfo.create({ parentUserID, ageOfChild, location, dateNeeded, startTime, endTime, additionalInfo })
+    let { id, ageOfChild, dateNeeded, startTime, location, endTime, additionalInfo, numberOfChildren } = req.body
+    return ParentalInfo.create({ parentUserID: id, ageOfChild, location, dateNeeded, startTime, endTime, additionalInfo, numberOfChildren })
         .then(values => {
             console.log('Parent', values)
             return res.status(201).json(values.apiRepr())
@@ -29,7 +29,9 @@ router.get('/:zipcode', jsonParser, (req, res) => {
 		{'_id':0, '__v':0}
 	)
 		.populate('parentUserID', {'_id': 0, '__v': 0, 'password': 0})
-		.then(data => res.status(200).json(data))
+		.then(data => {
+            console.log('data', data)
+            res.status(200).json(data)})
 		.catch(err => res.status(500).json({error: 'server side error'}))
 })
 
